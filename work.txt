@@ -1,7 +1,9 @@
+merge연습
+
 #Title
 content
 master, o2
 #Title
 content
 
-backup
+backup push 연습
