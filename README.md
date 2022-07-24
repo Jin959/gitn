@@ -98,7 +98,8 @@ Git
 > * ```$ git remote add (원격 저장소 별명) (원격 저장소 주소)``` : 지역 저장소(로컬 저장소, 내 컴퓨터에서 사용 중인 저장소)와 원격 저장소를 연결한다. 이 때, ```(원격저장소 별명)```은 origin으로 사용하는 것이 관습화 되어있다.?  
 > cf) ```$ git remote remove (원격 저장소 별명)``` : 원격 저장소와의 연결을 끊는다.
 > 
-> * ```$ git push --set-upstream origin master``` : 여러 개의 원격 저장소와 연결 될 수 있는데 어떤 원격 저장소와 기본적으로 연결 시킬 것인지 설정한다. 즉, 앞으로 origin에 master라는 브랜치로 기본적으로 push(업로드)한다.
+> * ```$ git push [-u | --set-upstream] origin master``` : 여러 개의 원격 저장소와 연결 될 수 있는데 어떤 원격 저장소와 기본적으로 연결 시킬 것인지 설정한다. 즉, 앞으로 origin에 master라는 브랜치로 기본적으로 push(업로드)한다. 최초에 한번만 하면된다.
+> * ```$ git push```만 하면 된다.
 > ---------------
 > ### git clone
 > * ```$ git clone (원격 저장소 주소 https::/)``` : 원격 저장소를 복제해서 지역 저장소를 만든다. 기본적으로 원격저장소 폴더명으로 저장소를 생성한다. 뒤에 폴더명을 지정하면 그 폴더명으로 생성시킨다.
@@ -108,4 +109,6 @@ Git
 ----------------------
 ## 4. [GIT CLI - 협업](https://opentutorials.org/course/3842)
 > ### 협업
-> 
+> * github에서 private이건 public이건 settings-collaborators에 추가하여야지 push를 할 수 있다. 초대받으면 메일을 받게 되고 Accept invitation을 해야한다.    
+>   
+> * 
