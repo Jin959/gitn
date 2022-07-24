@@ -91,7 +91,7 @@ Git
  > * detached : ```head```가 ```(branch name)```을 가리키도록 하지않고 ```head```가 ```commit id```를 가리키도록 할 때가 있다. 이렇게 ```head```가 ```branch```를 가리키지 않는 상황을 ```detached```상태라고 한다.  
 ----------------------------
 ## 3. [GIT CLI - Backup](https://opentutorials.org/course/3841)
-> ### git hosting
+> ### git hosting (git push)
 > * ```$ git remote``` : 원격 저장소가 있는지 확인한다.  
 > cf) ``` -v ``` : 원격 저장소의 상태와 주소도 표시  
 >   
@@ -102,3 +102,6 @@ Git
 > ---------------
 > ### git clone
 > * ```$ git clone (원격 저장소 주소 https::/)``` : 원격 저장소를 복제해서 지역 저장소를 만든다. 기본적으로 원격저장소 폴더명으로 저장소를 생성한다. 뒤에 폴더명을 지정하면 그 폴더명으로 생성시킨다.
+> ----------------
+> ### git pull
+> * ```$ git pull``` : 현재 저장소의 최신 commit을 가져온다. 따라서 작업할 때 <span style = "color:black; background-color:yellow;">"pull --> 작업 --> commit --> push"로 작업을 하면된다.<span>
