@@ -105,11 +105,18 @@ Git
 > * ```$ git clone (원격 저장소 주소 https::/)``` : 원격 저장소를 복제해서 지역 저장소를 만든다. 기본적으로 원격저장소 폴더명으로 저장소를 생성한다. 뒤에 폴더명을 지정하면 그 폴더명으로 생성시킨다.
 > ----------------
 > ### git pull
-> * ```$ git pull``` : 현재 저장소의 최신 commit을 가져온다. 따라서 작업할 때 <span style = "color:black; background-color:yellow;">"pull --> 작업 --> commit --> push"로 작업을 하면된다.<span>
+> * ```$ git pull``` : 현재 저장소의 최신 commit을 가져온다. 따라서 작업할 때 <span style = "color:black; background-color:yellow;">"pull --> 작업 --> commit --> push"로 작업을 하면된다.</span>
 ----------------------
 ## 4. [GIT CLI - 협업](https://opentutorials.org/course/3842)
 > ### 협업
 > * github에서 private이건 public이건 settings-collaborators에 추가하여야지 push를 할 수 있다. 초대받으면 메일을 받게 되고 Accept invitation을 해야한다.    
 >   
-> * 한사람 A가 "작업 --> commit --> push"를 했는데 다른 B가 "pull --> 작업 --> commit --> push"가 아니라 "작업 --> commit --> push"을 했다면 **rejected**당하고 ```$ git pull```을 하라고 한다. 하지만 같은 파일의 같은 라인을 수정한 경우, **conflict**가 일어난다. 이때 B가 **conflict**가 생긴 부분을 수정, 해결한 뒤 "commit --> push"하면 merge된다. 'A'는 나중에 "pull"하여 가져와서 "git log --graph"를 보면 'A'는 이전에 B가 merge한 작업을 보게 된다.
-> * 우리는 항상 pull을 하여 다른 사람이 업데이트 했는지 확인하는 것이 좋은 습관이다.
+> * 한사람 <span style = "color:red;">A</span>가 ```작업 --> commit --> push``` 를 했는데  
+다른 <span style = "color:blue;">B</span>가 ```pull --> 작업 --> commit --> push```가 아니라  
+```작업 --> commit --> push```을 했다면  
+**rejected**당하고 git은 ```$ git pull```을 하라고 한다.  
+하지만 같은 파일의 같은 라인을 수정한 경우, **conflict**가 일어난다.  
+이때 <span style = "color:blue;">B</span>가 **conflict**가 생긴 부분을 수정, 해결한 뒤 ```commit --> push```하면 merge된다.  
+<span style = "color:red;">A</span>는 나중에 "pull"하여 가져와서 ```$ git log --graph```를 보면 <span style = "color:red;">A</span>는 이전에 <span style = "color:blue;">B</span>가 merge한 작업을 보게 된다.
+>   
+> * 우리는 위의 <span style = "color:blue;">B</span>와 달리 항상 pull을 하도록한다. 다른 사람이 업데이트 했는지 확인하는 것이 좋은 습관이다.
