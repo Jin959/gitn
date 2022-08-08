@@ -79,16 +79,16 @@ Git
 그러나, 같은 파일의 같은 부분을 수정하고 commit한 뒤, 병합하면 Git은 자동으로 병합하지 못한다.  
  이를 <span style="color:red">**충돌(conflict)**</span> 이라고한다.  
  충돌이 일어난 부분에 아래와 같이 되고 이 부분을 수정후 ```$ git commit```하면 충돌을 해결한다.
- > ```
- > <<<<< HEAD
- > ....(HEAD에서의 내용)
- > ======
- > ....(당겨온 branch에서의 내용)
- > >>>>> (branch name)
- > ```
- > * <span style="color:black; background-color:yellow;">3 way merge</span> : 하나의 파일에서 base(공통의 조상)과 비교했을 때 다른 브랜치에서 수정된 쪽으로 병합된다.
- >  
- > * detached : ```head```가 ```(branch name)```을 가리키도록 하지않고 ```head```가 ```commit id```를 가리키도록 할 때가 있다. 이렇게 ```head```가 ```branch```를 가리키지 않는 상황을 ```detached```상태라고 한다.  
+> ```
+> <<<<< HEAD
+> ....(HEAD에서의 내용)
+> ======
+> ....(당겨온 branch에서의 내용)
+> >>>>> (branch name)
+> ```
+> * <span style="color:black; background-color:yellow;">3 way merge</span> : 하나의 파일에서 base(공통의 조상)과 비교했을 때 다른 브랜치에서 수정된 쪽으로 병합된다.
+>  
+> * detached : ```head```가 ```(branch name)```을 가리키도록 하지않고 ```head```가 ```commit id```를 가리키도록 할 때가 있다. 이렇게 ```head```가 ```branch```를 가리키지 않는 상황을 ```detached```상태라고 한다.  
 ----------------------------
 ## 3. [GIT CLI - Backup](https://opentutorials.org/course/3841)
 > ### git hosting (git push)
@@ -117,10 +117,26 @@ Git
 **rejected**당하고 git은 ```$ git pull```을 하라고 한다.  
 하지만 같은 파일의 같은 라인을 수정한 경우, **conflict**가 일어난다.  
 이때 <span style = "color:blue;">B</span>가 **conflict**가 생긴 부분을 수정, 해결한 뒤 ```commit --> push```하면 merge된다.  
-<span style = "color:red;">A</span>는 나중에 "pull"하여 가져와서 ```$ git log --graph```를 보면 <span style = "color:red;">A</span>는 이전에 <span style = "color:blue;">B</span>가 merge한 작업을 보게 된다.  
->   
-> * 우리는 위의 <span style = "color:blue;">B</span>와 달리 항상 pull을 하도록한다. 다른 사람이 업데이트 했는지 확인하는 것이 좋은 습관이다.
-> -----------
+이후, <span style = "color:red;">A</span>는 나중에 ```pull```하여 가져와서 ```$ git log --graph```를 보면 <span style = "color:red;">A</span>는 이전에 <span style = "color:blue;">B</span>가 ```merge```한 작업을 보게 된다.  
+>  
+> * 우리는 위의 <span style = "color:blue;">B</span>와 달리 항상 ```pull```을 하도록한다. 다른 사람이 업데이트 했는지 확인하는 것이 좋은 습관이다.
+> -------------------
 > ### pull VS fetch
-> * ```git pull = git fetch + git merge FETCH_HEAD```
-> * 
+> ```
+> git pull = git fetch; git merge FETCH_HEAD;
+> ```
+>  
+> * ```$ git fetch``` : ```$ git pull```과 다르다. 원격 저장소가 가지고 있는 ```commit```들을 로컬 저장소로 update해준다.  
+이때, HEAD는 fetch 이전의 commit을 그대로 가리킨다.  
+즉,  
+> ```  
+> git pull = git fetch; git merge master/origin(원격저장소 이름)
+> ```
+> 
+> * ```fetch```를 할 때 마다 ```.git/FETCH_HEAD```파일에 가장 최상위 ```commit id```을 표시한다.  
+> 따라서, 가장 최근의 ```commit```으로 ```HEAD```를 돌리기위해 항상 ```master/origin```와 ```merge```할필요 없이 아래와 같이 하면된다.
+> ```
+> git fetch; git merge FETCH_HEAD;
+> ```
+>  
+> * ∴ 신중하게 pull을 하고 싶으면 fetch를 사용한뒤 나중에 merge하면 된다.
