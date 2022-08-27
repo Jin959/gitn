@@ -1,7 +1,7 @@
 Git
 ======================
-[Gitn](https://opentutorials.org/course/3838) - 생활코딩 강의     
-    
+[Gitn](https://opentutorials.org/course/3838) - 생활코딩 (egoing) 강의를 들으며 필기한 내용.    
+
 ----------------------
 ## 1. [Git CLI 버전 관리](https://opentutorials.org/course/3839)
 > ### 명령어
@@ -60,7 +60,8 @@ Git
 ----------------------
 ## 2. [GIT CLI - Branch & Conflict](https://opentutorials.org/course/3840)
 > ### Branch
-> * ``` git branch``` : 브랜치를 본다.  
+> * ```$ git branch``` : 브랜치를 본다.  
+>   cf) ```$ git branch -M main``` : 현재 branch name을 main으로 변경한다. git CLI에서는 기본 브랜치 명이 ```master``` 이고 github에서의 기본 브랜치 명은 ```main```이다.
 >  
 > * ``` git branch (brach name)``` : (brach name)으로 브랜치를 생성한다.  
 >  
@@ -140,3 +141,7 @@ Git
 > ```
 >  
 > * ∴ 신중하게 pull을 하고 싶으면 fetch를 사용한뒤 나중에 merge하면 된다.
+> ---------------
+## [GIT - CLI cherry-pick & rebase](https://opentutorials.org/course/3843/24443)
+> ### cherry-pick
+> - 
