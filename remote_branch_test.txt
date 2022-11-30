@@ -1,1 +1,4 @@
 브랜치가 github에 올라가는지 테스팅
+
+git push origin branch2 가 아니라
+그냥 git push 하면 어디로 올라가는지
