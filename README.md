@@ -145,3 +145,61 @@ Git
 ## [GIT - CLI cherry-pick & rebase](https://opentutorials.org/course/3843/24443)
 > ### cherry-pick
 > - 
+
+
+
+
+---
+
+## branch 연동
+
+### 로컬에서 branch 생성시
+
+- 기존 로컬에서 branch 생성하고나서 원격 저장소와 브랜치를 맞추려면 아래와 같이 수행해야 된다.
+
+  참고  
+
+  <https://moding.tistory.com/entry/Git-원격remote-브랜치-생성-및-local-브랜치-연동>
+
+  ```bash
+  # 아래와 원격저장소인 origin에 로컬 브랜치 추가
+  $ git push origin dev/result_with_map 
+
+  # 아래와 같이 연동해둔다.
+  # 해당 브랜치로 이동후
+  $ git branch --set-upstream-to origin/dev/result_with_map 
+  # 또는
+  $ git branch --set-upstream-to origin/dev/result_with_map dev/result_with_map  
+  ```
+
+### 원격 저장소를 로컬에 git clone 할 경우
+
+- 원격 저장소를 로컬에 git clone 후 branch 연동하려면 
+
+- 아무것도 모를 때, 원격과 로컬의 branch를 연동을 안하고 origin에 master를 계속 push 해왔었는데 branch를 생성시킨 기록이 모두 원격 저장소에 push 되기는 한다. clone을 해왔는데 branch와 merge 기록이 모두 clone 되었다.
+
+- 그런데, 각 branch 마다 연결될 원격 저장소의 branch를 따로 재설정 해주어야 했다.
+
+  <https://moding.tistory.com/entry/Git-원격remote-브랜치-생성-및-local-브랜치-연동>
+
+  ```bash
+  # 아래와 같이 연동해둔다.
+  $ git branch --set-upstream-to origin/<브랜치 이름> 
+  $ git branch --set-upstream-to origin/<브랜치 이름> <로컬 브랜치 이름>  
+  ```
+
+- 그리고, clone으로 처음 가져왔을 때, log를 보면 ```origin/HEAD``` 가 생기는데, 이는 마지막으로 push 한 로컬 저장소의 HEAD인 것 같다. 없애고 싶으면 다음과 같이 제거 해준다.
+
+  참고
+
+  <https://devbirdfeet.tistory.com/180>
+
+  ```
+  remote set-head origin -d
+  ```
+- 읽어보기 좋은 글
+
+  - [git 브랜치 전략에 대해서](https://tecoble.techcourse.co.kr/post/2021-07-15-git-branch/) - 우아한 테크코스 3기_샐리
+
+  - [브랜치 전략 수립을 위한 전문가의 조언들](http://blog.hwahae.co.kr/all/tech/tech-tech/9507/) - 화해 
+--- 
