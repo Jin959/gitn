@@ -2,3 +2,5 @@
 
 git push origin branch2 가 아니라
 그냥 git push 하면 어디로 올라가는지
+해봤더니 git push --set-upstream origin branch2 하라고 함.
+이걸하면 기본적으로 origin에 올라가는듯
