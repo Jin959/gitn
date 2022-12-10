@@ -127,7 +127,7 @@ Git
 > git pull = git fetch; git merge FETCH_HEAD;
 > ```
 >  
-> * ```$ git fetch``` : ```$ git pull```과 다르다. 원격 저장소가 가지고 있는 ```commit```들을 로컬 저장소로 update해준다.  
+> * ```$ git fetch``` : ```$ git pull```과 다르다. 원격 저장소가 가지고 있는 ```commit```들을 로컬 저장소로 update해준다. merge는 되지 않는다.  
 이때, HEAD는 fetch 이전의 commit을 그대로 가리킨다.  
 즉,  
 > ```  
@@ -151,7 +151,25 @@ Git
 
 ---
 
-## branch 연동
+# 추가 학습
+
+## Remote Branch
+
+<https://git-scm.com/book/ko/v2/Git-브랜치-리모트-브랜치>
+
+- Refs : `refs/heads/master`, `HEAD` 와 같은 것들이다.
+
+  <https://git-scm.com/book/ko/v2/Git의-내부-Git-Refs>
+
+- `origin/<브랜치 이름>` : 리모트 트래킹 브랜치라고 부른다. Refs 대신 더 자주 사용한다.
+
+- `$ git remote show [원격저장소 이름]` : 모든 리모트 브랜치 정보를 볼 수 있다.
+
+- `$ git branch -vv` : 트래킹 되고 있는 원격 저장소의 브랜치를 로컬 브랜치 별로 확인 할 수 있다.
+
+- `$ git fetch orgin` 를 수행하게 되면 원격 저장소(origin)의 리모트 트래킹 브랜치들과 이 것들이 가리키는 로컬에는 없는 커밋들을 가져오지만 다른 브랜치로 가져오고 merge 되지 않는다.
+
+- `$ git branch -u [리모트 저장소 별칭, origin]/[리모트 브랜치 이름]` : 로컬의 브랜치가 리모트 브랜치를 추적하게 하게한다.
 
 ### 로컬에서 branch 생성시
 
@@ -188,7 +206,8 @@ Git
   $ git branch --set-upstream-to origin/<브랜치 이름> <로컬 브랜치 이름>  
   ```
 
-- 그리고, clone으로 처음 가져왔을 때, log를 보면 ```origin/HEAD``` 가 생기는데, 이는 마지막으로 push 한 로컬 저장소의 HEAD인 것 같다. 없애고 싶으면 다음과 같이 제거 해준다.
+
+- 그리고, clone으로 처음 가져왔을 때, log를 보면 ```origin/HEAD``` 가 생기는데, 이는 원격 저장소의 HEAD  없애고 싶으면 다음과 같이 제거 해준다.
 
   참고
 
