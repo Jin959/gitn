@@ -222,3 +222,47 @@ Git
 
   - [브랜치 전략 수립을 위한 전문가의 조언들](http://blog.hwahae.co.kr/all/tech/tech-tech/9507/) - 화해 
 --- 
+
+## SSH 연결
+
+1. `ssh-keygen` 으로 키 생성
+
+2. '/c/users/<유저명>/.ssh'에 생긴다. 공개키('*.pub') 내용을 github 설정에 추가한다.
+
+3. ssh agent에 키를 등록한다. eval을 사용하지 않았을 때 잘 등록 되지 않았다.
+
+  ```shell
+  $ eval `ssh-add /c/users/<유저명>/.ssh/개인키파일`
+  ```
+
+4. 키가 잘 등록 됐는지 확인 할 수 있는 것이 몇가지 있는데 그 중 하나가 아래 명령이다. 
+  키 정보가 반환되면 성공이다.
+
+  ```shell
+  $ ssh-add -l
+  ```
+
+5. 그 다음 원격 저장소와 연결
+
+  ```
+  $ git remote add origin git@github.com:[ssh연결경로]
+  ```
+
+- $cf)$ 윈도우에서 ssh-agent에 계속 등록해야하는 상황이 생기는데, `.bashrc`파일에 실행문을 추가해줘야 자동 실행 된다.  
+  github에서 공식적으로 guide를 제시해준다.  
+  <https://docs.github.com/ko/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases#auto-launching-ssh-agent-on-git-for-windows>
+
+
+- $cf)$ 윈도우라서 안되는 게 아닐 때는 다른 해결법도 있다.
+
+  <https://gentlesark.tistory.com/153>
+
+  <https://stackoverflow.com/questions/46661525/permanently-add-an-ssh-key>
+
+  <https://docs.github.com/ko/developers/overview/using-ssh-agent-forwarding>
+
+### References
+
+- <https://velog.io/@igotoo/github-접속을-https에서-ssh-접속으로-변경하기>
+
+- 
