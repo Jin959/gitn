@@ -16,16 +16,16 @@
 4. [GIT CLI - 협업](#4-git-cli---협업)
     - [협업(push & pull)](#협업push--pull)
     - [pull VS fetch](#pull-vs-fetch)
-5. [GIT - CLI cherry-pick & rebase](#git---cli-cherry-pick--rebase)
+5. [GIT - CLI cherry-pick & rebase](#5-git---cli-cherry-pick--rebase)
     - [cherry-pick](#cherry-pick)
----
+
 [추가 학습](#추가-학습)
 - [Remote Branch](#remote-branch)
     - [로컬에서 branch 생성시 연동](#로컬에서-branch-생성시-연동)
     - [원격 저장소를 로컬에 git clone 할때 연동](#원격-저장소를-로컬에-git-clone-할-경우-연동)
 - [SSH 연결](#ssh-연결)
 
-
+---
 # Gitn
 ## 1. [Git CLI 버전 관리](https://opentutorials.org/course/3839)
 ### 명령어
@@ -67,7 +67,7 @@
    
 * ```$ git checkout (commit id)``` : 버전을 ```commit id```였을 때로 돌린다. 즉, ```head```가 ```commit id```를 가리키도록 한다. 이렇게 ```head```가 ```branch```를 가리키지 않는 상황을 ```detached```상태라고 한다.  
   $cf)$ ```$ git checkout master``` : 가장 최근(앞)의 버젼으로 돌아간다. ```head```를 ```master```로 이동시킨다.  
---------------------     
+
 ### 상태들
 |#|상태|의미|
 |:---:|----|:----|
@@ -75,13 +75,13 @@
 | 2 |<span style="color:black; background-color:yellow;">**Staging Area**</span> | 복수의 파일 중 원하는 파일들을 선택하여 버젼으로 만들고 싶을 때 Staging Area에 선택한 파일들을 올려둔다. 그 다음 commit하면 동시에 commit된다.|
 | 3 |<span style="color:black; background-color:yellow;">**Repository**</span> | version 이 저장되는 곳 (.git)|
 
-----------------------
+
 ### 폴더 및 파일
 
 * ```.git 디렉토리```에 version 정보들이 기록된다.
     
 * ```.gitignore 파일```는 버젼관리를 하지말아야 할 파일들, 필요에 따라 임시파일을 만들지 않게하거나, 비밀번호나 개인정보를 올리고 싶지 않을 때
-----------------------
+
 ## 2. [GIT CLI - Branch & Conflict](https://opentutorials.org/course/3840)
 ### Branch
 * ```$ git branch``` : 브랜치를 본다.  
@@ -92,7 +92,7 @@
 * ```$ git checkout (branch name)``` : 현재 브랜치에서 나와 ```(branch name)```으로 이동한다. ```head```가 ```(branch name)```을 가리키도록 한다.  
  
 
-----------------------
+
 ### Merge
 * 서로 갈라졌던 Branch를 합치는 것을 병합(Merge)라고 한다. (merge commit)  
  
@@ -114,7 +114,7 @@
 * <span style="color:black; background-color:yellow;">3 way merge</span> : 하나의 파일에서 base(공통의 조상)과 비교했을 때 다른 브랜치에서 수정된 쪽으로 병합된다.
  
 * detached : ```head```가 ```(branch name)```을 가리키도록 하지않고 ```head```가 ```commit id```를 가리키도록 할 때가 있다. 이렇게 ```head```가 ```branch```를 가리키지 않는 상황을 ```detached```상태라고 한다.  
-----------------------------
+
 ## 3. [GIT CLI - Backup](https://opentutorials.org/course/3841)
 ### git push (hosting)
 * ```$ git remote``` : 원격 저장소가 있는지 확인한다.  
@@ -125,13 +125,13 @@
 
 * ```$ git push [-u | --set-upstream] origin master``` : 여러 개의 원격 저장소와 연결 될 수 있는데 어떤 원격 저장소와 기본적으로 연결 시킬 것인지 설정한다. 즉, 앞으로 origin에 master라는 브랜치로 기본적으로 push(업로드)한다. 최초에 한번만 하면된다.
 * ```$ git push```만 하면 된다.
----------------
+
 ### git clone
 * ```$ git clone (원격 저장소 주소 https::/)``` : 원격 저장소를 복제해서 지역 저장소를 만든다. 기본적으로 원격저장소 폴더명으로 저장소를 생성한다. 뒤에 폴더명을 지정하면 그 폴더명으로 생성시킨다.
-----------------
+
 ### git pull
 * ```$ git pull``` : 현재 저장소의 최신 commit을 가져온다. 따라서 작업할 때 <span style = "color:black; background-color:yellow;">"pull --> 작업 --> commit --> push"로 작업을 하면된다.</span>
-----------------------
+
 ## 4. [GIT CLI - 협업](https://opentutorials.org/course/3842)
 ### 협업(push & pull)
 * github에서 private이건 public이건 settings-collaborators에 추가하여야지 push를 할 수 있다. 초대받으면 메일을 받게 되고 Accept invitation을 해야한다.    
@@ -145,7 +145,7 @@
 이후, <span style = "color:red;">A</span>는 나중에 ```pull```하여 가져와서 ```$ git log --graph```를 보면 <span style = "color:red;">A</span>는 이전에 <span style = "color:blue;">B</span>가 ```merge```한 작업을 보게 된다.  
  
 * 우리는 위의 <span style = "color:blue;">B</span>와 달리 항상 ```pull```을 하도록한다. 다른 사람이 업데이트 했는지 확인하는 것이 좋은 습관이다.
--------------------
+
 ### pull VS fetch
 ```
 git pull = git fetch; git merge FETCH_HEAD;
@@ -165,8 +165,8 @@ git pull = git fetch; git merge FETCH_HEAD;
   ```
  
 * ∴ 신중하게 pull을 하고 싶으면 fetch를 사용한뒤 나중에 merge하면 된다.
----------------
-## [GIT - CLI cherry-pick & rebase](https://opentutorials.org/course/3843/24443)
+
+## 5. [GIT - CLI cherry-pick & rebase](https://opentutorials.org/course/3843/24443)
 ### cherry-pick
 - 
 
@@ -245,7 +245,7 @@ git pull = git fetch; git merge FETCH_HEAD;
   - [git 브랜치 전략에 대해서](https://tecoble.techcourse.co.kr/post/2021-07-15-git-branch/) - 우아한 테크코스 3기_샐리
 
   - [브랜치 전략 수립을 위한 전문가의 조언들](http://blog.hwahae.co.kr/all/tech/tech-tech/9507/) - 화해 
---- 
+
 
 ## SSH 연결
 
