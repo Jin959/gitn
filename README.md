@@ -1,8 +1,32 @@
-Git
-======================
-[Gitn](https://opentutorials.org/course/3838) - 생활코딩 (egoing) 강의를 들으며 필기한 내용.    
+# Git
+[Gitn](#gitn)
+- 생활코딩 (egoing) 강의를 들으며 필기한 내용.    
+- [Gitn 강의](https://opentutorials.org/course/3838)
+1. [Git CLI 버전 관리](#1-git-cli-버전-관리)
+    - [명령어](#명령어)
+    - [상태들](상태들)
+    - [폴더 및 파일](#폴더-및-파일)
+2. [GIT CLI - Branch & Conflict](#2-git-cli---branch--conflict)
+    - [Branch](#branch)
+    - [Merge](#merge)
+3. [GIT CLI - Backup](#3-git-cli---backup)
+    - [git push (hosting)](#git-push-hosting)
+    - [git clone](#git-clone)
+    - [git pull](#git-pull)
+4. [GIT CLI - 협업](#4-git-cli---협업)
+    - [협업(push & pull)](#협업push--pull)
+    - [pull VS fetch](#pull-vs-fetch)
+5. [GIT - CLI cherry-pick & rebase](#git---cli-cherry-pick--rebase)
+    - [cherry-pick](#cherry-pick)
+---
+[추가 학습](#추가-학습)
+- [Remote Branch](#remote-branch)
+    - [로컬에서 branch 생성시 연동](#로컬에서-branch-생성시-연동)
+    - [원격 저장소를 로컬에 git clone 할때 연동](#원격-저장소를-로컬에-git-clone-할-경우-연동)
+- [SSH 연결](#ssh-연결)
 
-----------------------
+
+# Gitn
 ## 1. [Git CLI 버전 관리](https://opentutorials.org/course/3839)
 ### 명령어
 * ```$ git init (diretory)```: initialize repository, (diretory)에 리파지토리를 초기화 하여 생성    
@@ -92,7 +116,7 @@ Git
 * detached : ```head```가 ```(branch name)```을 가리키도록 하지않고 ```head```가 ```commit id```를 가리키도록 할 때가 있다. 이렇게 ```head```가 ```branch```를 가리키지 않는 상황을 ```detached```상태라고 한다.  
 ----------------------------
 ## 3. [GIT CLI - Backup](https://opentutorials.org/course/3841)
-### git hosting (git push)
+### git push (hosting)
 * ```$ git remote``` : 원격 저장소가 있는지 확인한다.  
   $cf)$ ``` -v ``` : 원격 저장소의 상태와 주소도 표시  
   
@@ -171,7 +195,7 @@ git pull = git fetch; git merge FETCH_HEAD;
 
 - `$ git branch -u [리모트 저장소 별칭, origin]/[리모트 브랜치 이름]` : 로컬의 브랜치가 리모트 브랜치를 추적하게 하게한다.
 
-### 로컬에서 branch 생성시
+### 로컬에서 branch 생성시 연동
 
 - 기존 로컬에서 branch 생성하고나서 원격 저장소와 브랜치를 맞추려면 아래와 같이 수행해야 된다.
 
@@ -190,7 +214,7 @@ git pull = git fetch; git merge FETCH_HEAD;
   $ git branch --set-upstream-to origin/dev/result_with_map dev/result_with_map  
   ```
 
-### 원격 저장소를 로컬에 git clone 할 경우
+### 원격 저장소를 로컬에 git clone 할 경우 연동
 
 - 원격 저장소를 로컬에 git clone 후 branch 연동하려면 
 
