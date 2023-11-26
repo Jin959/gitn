@@ -24,6 +24,7 @@
     - [로컬에서 branch 생성시 연동](#로컬에서-branch-생성시-연동)
     - [원격 저장소를 로컬에 git clone 할때 연동](#원격-저장소를-로컬에-git-clone-할-경우-연동)
 - [SSH 연결](#ssh-연결)
+- [깃허브 repositoy 이름 변경](#깃허브-repositoy-이름-변경)
 
 ---
 # Gitn
@@ -289,4 +290,12 @@ git pull = git fetch; git merge FETCH_HEAD;
 
 - <https://velog.io/@igotoo/github-접속을-https에서-ssh-접속으로-변경하기>
 
-- 
+## 깃허브 repositoy 이름 변경
+
+깃허브 레포에서 settings 에서 rename 한 뒤에 로컬에서도 레포명 변경 전의 URL 에서 새로운 URL로 변경해주는 것이 좋다.
+
+- [깃허브 공식 문서](https://docs.github.com/ko/repositories/creating-and-managing-repositories/renaming-a-repository)
+
+```
+git remote set-url origin NEW_URL
+```
