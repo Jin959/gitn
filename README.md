@@ -169,7 +169,7 @@ git pull = git fetch; git merge FETCH_HEAD;
 
 ## 5. [GIT - CLI cherry-pick & rebase](https://opentutorials.org/course/3843/24443)
 
-* cherry-pick, rebase, revert 들은 다른 가지에서 생성된 "커밋 혹은 커밋 들의 전체 워킹 디렉토리의 스냅샷을 가져오는 것이 아니라" 선택 커밋과 지정한 이전 커밋 사이의 변화량"만 가져온다.
+* cherry-pick, rebase, revert 들은 다른 가지에서 생성된 "커밋 혹은 커밋 들의 전체 워킹 디렉토리의 스냅샷을 가져오는 것이 아니라 "선택 커밋의 변화량"만 가져온다.
 
 ### cherry-pick
 - 체리를 가져오듯이 특정 커밋만 가져오겠어
@@ -181,8 +181,30 @@ git pull = git fetch; git merge FETCH_HEAD;
     ```
 
 ### rebase
+- cherry-pick 의 연쇄작용이다.
+- 두 가지의 공통조상으로부터의 모든 다른 커밋을 하나의 가지로 가져온다.
+- master 가지의 공통 조상 이후 부터의 모든 커밋을 topic 으로 가져오고 싶은경우 master 브랜치로 이동하고 다음을 실행한다.
+    ```
+    # topic 가지에 master 의 커밋 기록이 얹어진다.
+    git rebase topic
+    ```
+- 공통조상 이후의 모든 커밋들은 순차적으로 옮겨진다. 즉, 동일한 커밋을 옮기더라도 옮겨진 베이스의 상황에 따라 리베이스 커밋의 변경사항 결과는 달라질 수 있다. -> test.txt 를 생성했다가 revert 하는 커밋이 뗴어서 옮길 브랜치에 있다고 하자. 현재 파일 상황에 test.txt 있다면 test.txt 를 생성하는 커밋은 무시되고 revert 하는 커밋만 적용된다. 그래서 파일상황이 그대로 옮겨지는 것은 아니다.
 
+- 원격 저장소에 push 된 가지와 커밋은 rebase 하면 안된다. 하나씩 cherry-pick 을 하는 것과 같기 때문에 워킹 디렉터리 스냅샷은 완전히 다르다. 따라서 원격에 푸시된 가지를 리베이스 하면 엉망이 된다.
 
+- 리베이스 후에 머지하여 HEAD 당기기, 아래의 경우 master 로 이동했다.
+    ```
+    * 543bcf7 (origin/rebase, rebase) t3
+    * df35c13 t2
+    * 7e33da2 t1
+    * a9a245b (HEAD -> master, origin/master) m2
+    * fabd9c4 m1
+    * a635817 rebase 실습을 위한 초기화
+    ```
+    이런 상황에서 머지한다.
+    ```
+    git merge rebase
+    ```
 
 ---
 
