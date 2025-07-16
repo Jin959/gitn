@@ -168,9 +168,19 @@ git pull = git fetch; git merge FETCH_HEAD;
 * ∴ 신중하게 pull을 하고 싶으면 fetch를 사용한뒤 나중에 merge하면 된다.
 
 ## 5. [GIT - CLI cherry-pick & rebase](https://opentutorials.org/course/3843/24443)
-### cherry-pick
-- 
 
+* cherry-pick, rebase, revert 들은 다른 가지에서 생성된 "커밋 혹은 커밋 들의 전체 워킹 디렉토리의 스냅샷을 가져오는 것이 아니라" 선택 커밋과 지정한 이전 커밋 사이의 변화량"만 가져온다.
+
+### cherry-pick
+- 체리를 가져오듯이 특정 커밋만 가져오겠어
+- 브랜치의 분기가 나뉘었는데 다른 브랜치의 특정 커밋에서 변화된 것을 가져오는 것
+- 타겟 커밋이 그대로 복제되어 현제 브랜치에 커밋까지 된다.
+- 가져오려는 커밋이 있는 브랜치가 아니라 병합하려는 타겟 브랜치로 이동한뒤 cherry-pick 한다.
+    ```
+    git cherry-pick 3b16f55
+    ```
+
+### rebase
 
 
 
