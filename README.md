@@ -1,9 +1,12 @@
 # Git
-[Gitn](#gitn)
+
 - 생활코딩 (egoing) 강의를 들으며 필기한 내용.    
 - [Gitn 강의](https://opentutorials.org/course/3838)
 1. [Git CLI 버전 관리](#1-git-cli-버전-관리)
-    - [명령어](#명령어)
+    - [레파지토리 생성 및 삭제](#레파지토리-생성-및-삭제)
+    - [commit](#commit)
+    - [log](#log)
+    - [되돌리기](#되돌리기)
     - [상태들](상태들)
     - [폴더 및 파일](#폴더-및-파일)
 2. [GIT CLI - Branch & Conflict](#2-git-cli---branch--conflict)
@@ -18,6 +21,7 @@
     - [pull VS fetch](#pull-vs-fetch)
 5. [GIT - CLI cherry-pick & rebase](#5-git---cli-cherry-pick--rebase)
     - [cherry-pick](#cherry-pick)
+    - [rebase](#rebase)
 
 [추가 학습](#추가-학습)
 - [Remote Branch](#remote-branch)
@@ -28,83 +32,179 @@
 
 ---
 # Gitn
-## 1. [Git CLI 버전 관리](https://opentutorials.org/course/3839)
-### 명령어
-* ```$ git init (diretory)```: initialize repository, (diretory)에 리파지토리를 초기화 하여 생성    
-  $ex)$ ```$ git init .``` : 현재 디렉토리에 initialize
-  
-* ```$ rm -fr .git``` : 레파지토리 삭제  
-  $cf)$ -f : forced, -r : recursive
 
-* ```$ git status``` : 현재 작업중인 repository가 어떤 상태인지 알려준다.
-  
-* ```$ git add``` : add to staging area   
-  $ex)$ ```$ git add (파일이름1) (파일이름2) ...``` : 파일들을 add하여 stage에 올린다.   
-  $ex)$ ```$ git add .``` or ```$ git add *``` : 현재 폴더 전부 add    
-  $ex)$ ```$ git add (폴더)``` : 해당 폴더 전부 add    
+## 1. [Git CLI 버전 관리](https://opentutorials.org/course/3839)
+
+### 레파지토리 생성 및 삭제
+
+(diretory)에 리파지토리를 초기화 하여 레파지토리 생성
+```
+git init (diretory)
+```
+예를 들어 아래는 현재 디렉토리에 initialize
+```
+git init .
+```
+
+
+레파지토리 삭제  
+```
+rm -fr .git
+```
+- -f : forced  
+- -r : recursive  
+
+
+현재 작업중인 repository가 어떤 상태인지 알려준다.
+```
+git status
+```
+
+### commit
+stage에 올린다. add to staging area  
+```
+git add
+```
+파일들을 add하여 stage에 올린다.
+```
+git add (파일이름1) (파일이름2) ...
+```
+현재 폴더 전부 add
+```
+git add .
+git add *
+```
+해당 폴더 전부 add
+```
+git add (폴더)
+```
+
+stage 에 올리고 커밋한다. commit the version to repository
+```
+git commit
+```
+메세지 입력
+```
+git commit -m (메세지)
+```
+add 까지 한번에 수행하여 commit 한다. 단, 한번이라도 add를 수행하여 tracked 상태여야 수행한다.
+```
+git commit -am (메세지)
+```
+다시 커밋하고 싶으면 파일 수정 작업을 하고 Staging Area에 추가(add)한 다음 `--amend` 옵션을 사용하여 커밋을 재작성 할 수 있다.
+```
+git commit --amend
+```
+
+### log
+commit 기록, 'q'버튼으로 종료
+```
+git log
+```
+상태도 표시
+```
+git log --stat
+```
+patch, 더욱 상세하게 어떻게 수정되었는지 표시  
+```
+git log -p
+```
+- `--all` : 모든 브랜치에 대해  
+- `--graph` : 시각화  
+- `--oneline` : 한줄요약  
+
+
+마지막 commit한 버젼과 working tree사이에 차이점을 파악할 수 있다. 버젼을 만들기 전에 뭐했는지 최종적으로 검토를 할 수 있다.
+```
+git diff
+```
+### 되돌리기
+버전을 되돌린다.  
+이때, working tree를 마지막 commit 버젼으로 리셋한다.   
+```
+git reset --hard
+```
+해당 (commit id) 버전으로 리셋 하겠다.  
+```
+$ git reset --hard (commit id)
+```
+reset 옵션의 `--hard` 옵션은 현재 하고있는 working tree의 작업까지 모두 지운다.  
+reset은 보통 `(commit id)`를 인자로 사용하지만 `(branch name)`을 인자로 실행할 수도 있다. (대상 branch)가 가리키고 있던 commit을 원래의 branch가 가리키도록 하는 것이다.  
+옵션 별로 reset 정도가 다르다.
+- `--mixed` : 기본 옵션으로 현재 작업은 유지하고 commit 만 되돌린다.
+- `--soft` : 현재 작업을 stage 에 올리 상태로 돌리고 commit 을 되돌린다.  
+
+
+더 자세한 옵션을 보려면 `--help`
+```
+git reset --help
+```
+
+
+그 커밋 이전 버젼으로 복원하고 복원하는 과정을 다시 커밋으로 추가한다.
+삭제의 목적과 보전의 목적을 모두 수행하기위해 사용한다. (commit id)에서의 변화를 취소한다. 즉, 타겟 커밋 작업의 변화량만큼만 취소하는 커밋을 한다.
+```
+git revert (commit id)
+```
+- cf) revert는 반드시 차근차근 역순으로 수행해야 한다.  
+
    
-* ```$ git commit``` : commit the version to repository, Stage에 올라온 버전을 commit, 옵션을 택하지않으면 편집기에서 commit message를 입력한 후 저장하면 커밋된다.    
-  $cf)$ ```$ git commit -m (메세지)``` 로 메세지 입력   
-  $cf)$ ```$ git commit -am (메세지)``` add까지 한번에 수행하여 commit한다. 단, 한번이라도 add를 수행하여 tracked상태여야 수행한다.  
-  $cf)$ ```$ git commit --amend``` : 너무 일찍 커밋했거나 어떤 파일을 빼먹었을 때 그리고 커밋 메시지를 잘못 적었을 때 한다. 다시 커밋하고 싶으면 파일 수정 작업을 하고 Staging Area에 추가한 다음 --amend 옵션을 사용하여 커밋을 재작성 할 수 있다.  
-   
-* ```$ git log``` : commit 기록, 'q'버튼으로 종료     
-  $cf)$ ```$ git log --stat``` : 상태도 표시   
-  $cf)$ ```$ git log -p``` : patch, 더욱 상세하게 어떻게 수정되었는지 표시  
-  $cf)$ ```--all``` : 모든 브랜치에 대해  
-  $cf)$ ```--graph``` : 시각화  
-  $cf)$ ```--oneline``` : 한줄요약  
-   
-* ```$ git diff``` : 마지막 commit한 버젼과 working tree사이에 차이점을 파악할 수 있다. 버젼을 만들기 전에 뭐했는지 최종적으로 검토를 할 수 있다.
-   
-* ```$ git reset --hard``` : working tree를 마지막 commit 버젼으로 리셋한다.   
-  $cf)$ ```$ git reset --hard (commit id)``` : (commit id)로(이 버젼으로) 리셋 하겠다.   
-  $cf)$ reset 옵션의 --hard 모드는 현재하고있는 working tree의 작업까지 모두 지운다. (```$ git reset --help``` 참고)  
-  $cf)$ reset은 보통 ```(commit id)```를 인자로 사용하지만 ```(branch name)```을 인자로 실행 할 수 도 있다.  
-  이 경우 ```(branch name)```을 인자로 실행하면 ```(branch name)```(대상 branch)가 가리키고 있던 commit을 원래의 branch(reset 실행 전 head가 가리키는 branch)가 가리키도록 하는 것이다.
- 
-* ```$ git revert (commit id)``` : 삭제의 목적과 보전의 목적을 모두 수행하기위해 사용한다. (commit id)에서의 변화를 취소한다. 즉, 그 커밋 이전 버젼으로 복원된다.    
-  $cf)$ revert는 반드시 차근차근 역순으로 수행해야한다. 그렇지 않고 **"임의의 지점으로 한번에 점프하도록 revert명령을 시키면 충돌이 일어나 대단히 복잡해진다?"**     
-   
-* ```$ git checkout (commit id)``` : 버전을 ```commit id```였을 때로 돌린다. 즉, ```head```가 ```commit id```를 가리키도록 한다. 이렇게 ```head```가 ```branch```를 가리키지 않는 상황을 ```detached```상태라고 한다.  
-  $cf)$ ```$ git checkout master``` : 가장 최근(앞)의 버젼으로 돌아간다. ```head```를 ```master```로 이동시킨다.  
+`head`가 `commit id`를 가리키도록 한다. 버전 기록은 그대로 유지한 채, `commit id` 로 이동만 한다.
+```
+git checkout (commit id)
+```
+이렇게 `head`가 `branch`를 가리키지 않는 상황을 `detached`상태라고 한다.  
+- $cf)$ `git checkout master`는 가장 최근(앞)의 버젼으로 이동한다. `head`를 `master`로 이동시킨다.  
 
 ### 상태들
 |#|상태|의미|
 |:---:|----|:----|
-| 1 |<span style="color:black; background-color:yellow;">**Working Tree**</span> | 아직 version 으로 만들어지기 전 단계이고 Stage에도 올라가지 않은 상태, 그냥 작업만 한 것들이 이 상태이다. |
-| 2 |<span style="color:black; background-color:yellow;">**Staging Area**</span> | 복수의 파일 중 원하는 파일들을 선택하여 버젼으로 만들고 싶을 때 Staging Area에 선택한 파일들을 올려둔다. 그 다음 commit하면 동시에 commit된다.|
-| 3 |<span style="color:black; background-color:yellow;">**Repository**</span> | version 이 저장되는 곳 (.git)|
+| 1 |**Working Tree** | 아직 version 으로 만들어지기 전 단계이고 Stage에도 올라가지 않은 상태, 그냥 작업만 한 것들이 이 상태이다. |
+| 2 |**Staging Area** | 복수의 파일 중 원하는 파일들을 선택하여 버젼으로 만들고 싶을 때 Staging Area에 선택한 파일들을 올려둔다. 그 다음 commit하면 동시에 commit된다.|
+| 3 |**Repository** | version 이 저장되는 곳 (.git)|
 
 
 ### 폴더 및 파일
 
-* ```.git 디렉토리```에 version 정보들이 기록된다.
-    
-* ```.gitignore 파일```는 버젼관리를 하지말아야 할 파일들, 필요에 따라 임시파일을 만들지 않게하거나, 비밀번호나 개인정보를 올리고 싶지 않을 때
+- `.git 디렉토리`에 version 정보들이 기록된다.  
+- `.gitignore 파일`는 버젼관리를 하지말아야 할 파일들, 필요에 따라 임시파일을 만들지 않게하거나, 비밀번호나 개인정보를 올리고 싶지 않을 때  
 
 ## 2. [GIT CLI - Branch & Conflict](https://opentutorials.org/course/3840)
 ### Branch
-* ```$ git branch``` : 브랜치를 본다.  
-  $cf)$ ```$ git branch -M main``` : 현재 branch name을 main으로 변경한다. git CLI에서는 기본 브랜치 명이 ```master``` 이고 github에서의 기본 브랜치 명은 ```main```이다.
- 
-* ``` git branch (brach name)``` : (brach name)으로 브랜치를 생성한다.  
- 
-* ```$ git checkout (branch name)``` : 현재 브랜치에서 나와 ```(branch name)```으로 이동한다. ```head```가 ```(branch name)```을 가리키도록 한다.  
+브랜치 목록을 본다.
+```
+git branch
+```
+현재 branch name을 main으로 변경한다. git CLI에서는 기본 브랜치 명이 ```master``` 이고 github에서의 기본 브랜치 명은 ```main```이다.
+```
+git branch -M main
+```
+
+(brach name)으로 브랜치를 생성한다.
+```
+git branch (brach name)
+git checkout -b (brach name)
+```
+현재 브랜치에서 나와 `(branch name)`으로 이동한다. `head`가 `(branch name)`을 가리키도록 한다.  
+```
+git checkout (branch name)
+```
  
 
 
 ### Merge
-* 서로 갈라졌던 Branch를 합치는 것을 병합(Merge)라고 한다. (merge commit)  
+- 서로 갈라졌던 Branch를 합치는 것을 병합(Merge)라고 한다. (merge commit)  
+- 서로 다른 Branch에서 공통의 조상을 Base라고 한다.  
+
+branch1에서 -> branch2으로 병합하려면, 일단 ```HEAD -> branch2``` 가 되도록 하고 병합하고 싶은 브랜치(branch1)을 지정하면 된다. 즉, branch2에서 branch1을 당겨 오는 것.
+```
+git merge branch1
+```
  
-* 서로 다른 Branch에서 공통의 조상을 Base라고 한다.  
- 
-* ```$ git merge branch1``` : branch1에서 -> branch2으로 병합하려면, 일단 ```HEAD -> branch2``` 가 되도록 하고 병합하고 싶은 브랜치(branch1)을 지정하면 된다. 즉, branch2에서 branch1을 당겨 오는 것.  
- 
-* <span style="color:black; background-color:yellow;">중요</span> : 각각의 branch에서, 같은 파일의 다른 부분을 수정하고 commit한 뒤, 병합하면 각각의 수정사항이 모두 병합된다.  
+- 중요 : 각각의 branch에서, 같은 파일의 다른 부분을 수정하고 commit한 뒤, 병합하면 각각의 수정사항이 모두 병합된다.  
 그러나, 같은 파일의 같은 부분을 수정하고 commit한 뒤, 병합하면 Git은 자동으로 병합하지 못한다.  
- 이를 <span style="color:red">**충돌(conflict)**</span> 이라고한다.  
- 충돌이 일어난 부분에 아래와 같이 되고 이 부분을 수정후 ```$ git commit```하면 충돌을 해결한다.
+ 이를 **충돌(conflict)** 이라고 한다.  
+ 충돌이 일어난 부분에 아래와 같이 되고 이 부분을 수정후 `$ git commit`하면 충돌을 해결한다.
   ```
   <<<<< HEAD
   ....(HEAD에서의 내용)
@@ -112,64 +212,100 @@
   ....(당겨온 branch에서의 내용)
   >>>>> (branch name)
   ```
-* <span style="color:black; background-color:yellow;">3 way merge</span> : 하나의 파일에서 base(공통의 조상)과 비교했을 때 다른 브랜치에서 수정된 쪽으로 병합된다.
+- 3 way merge : 하나의 파일에서 base(공통의 조상)과 비교했을 때 다른 브랜치에서 수정된 쪽으로 병합된다.
  
-* detached : ```head```가 ```(branch name)```을 가리키도록 하지않고 ```head```가 ```commit id```를 가리키도록 할 때가 있다. 이렇게 ```head```가 ```branch```를 가리키지 않는 상황을 ```detached```상태라고 한다.  
+- detached : `head`가 `(branch name)`을 가리키도록 하지않고 `head`가 `commit id`를 가리키도록 할 때가 있다. 이렇게 `head`가 `branch`를 가리키지 않는 상황을 `detached`상태라고 한다.  
 
 ## 3. [GIT CLI - Backup](https://opentutorials.org/course/3841)
 ### git push (hosting)
-* ```$ git remote``` : 원격 저장소가 있는지 확인한다.  
-  $cf)$ ``` -v ``` : 원격 저장소의 상태와 주소도 표시  
-  
-* ```$ git remote add (원격 저장소 별명) (원격 저장소 주소)``` : 지역 저장소(로컬 저장소, 내 컴퓨터에서 사용 중인 저장소)와 원격 저장소를 연결한다. 이 때, ```(원격저장소 별명)```은 origin으로 사용하는 것이 관습화 되어있다.?  
-  $cf)$ ```$ git remote remove (원격 저장소 별명)``` : 원격 저장소와의 연결을 끊는다.
+원격 저장소 정보확인
+```
+git remote
+```
+- `-v ` : 원격 저장소의 상태와 주소도 표시  
 
-* ```$ git push [-u | --set-upstream] origin master``` : 여러 개의 원격 저장소와 연결 될 수 있는데 어떤 원격 저장소와 기본적으로 연결 시킬 것인지 설정한다. 즉, 앞으로 origin에 master라는 브랜치로 기본적으로 push(업로드)한다. 최초에 한번만 하면된다.
-* ```$ git push```만 하면 된다.
+지역 저장소(로컬 저장소, 내 컴퓨터에서 사용 중인 저장소)와 원격 저장소를 연결한다.
+```
+git remote add (원격 저장소 별명) (원격 저장소 주소)
+```
+원격 저장소와의 연결을 끊는다.  
+```
+git remote remove (원격 저장소 별명)
+```
+
+
+여러 개의 원격 저장소와 연결 될 수 있는데 어떤 원격 저장소와 기본적으로 연결 시킬 것인지 설정한다. 즉, 앞으로 origin에 master라는 브랜치로 기본적으로 push(업로드)한다. 최초에 한번만 하면된다.
+로컬 가지가 원격가지를 트래킹하도록 설정하는 것이기도 하다.
+```
+git push [-u | --set-upstream] origin master
+```
+한번 만 하면 앞으로는 트래킹 된다.
+```
+git push
+```
+
 
 ### git clone
-* ```$ git clone (원격 저장소 주소 https::/)``` : 원격 저장소를 복제해서 지역 저장소를 만든다. 기본적으로 원격저장소 폴더명으로 저장소를 생성한다. 뒤에 폴더명을 지정하면 그 폴더명으로 생성시킨다.
+원격 저장소를 복제해서 지역 저장소를 만든다.
+```
+git clone (원격 저장소 주소 https::/)
+```
+기본적으로 원격저장소 폴더명으로 저장소를 생성한다. 뒤에 폴더명을 지정하면 그 폴더명으로 생성시킨다.
 
 ### git pull
-* ```$ git pull``` : 현재 저장소의 최신 commit을 가져온다. 따라서 작업할 때 <span style = "color:black; background-color:yellow;">"pull --> 작업 --> commit --> push"로 작업을 하면된다.</span>
+현재 저장소의 최신 commit을 가져온다.
+```
+git pull
+```
 
 ## 4. [GIT CLI - 협업](https://opentutorials.org/course/3842)
 ### 협업(push & pull)
 * github에서 private이건 public이건 settings-collaborators에 추가하여야지 push를 할 수 있다. 초대받으면 메일을 받게 되고 Accept invitation을 해야한다.    
   
-* 한사람 <span style = "color:red;">A</span>가 ```작업 --> commit --> push``` 를 했는데  
-다른 <span style = "color:blue;">B</span>가 ```pull --> 작업 --> commit --> push```가 아니라  
-```작업 --> commit --> push```을 했다면  
-**rejected**당하고 git은 ```$ git pull```을 하라고 한다.  
-하지만 같은 파일의 같은 라인을 수정한 경우, **conflict**가 일어난다.  
-이때 <span style = "color:blue;">B</span>가 **conflict**가 생긴 부분을 수정, 해결한 뒤 ```commit --> push```하면 merge된다.  
-이후, <span style = "color:red;">A</span>는 나중에 ```pull```하여 가져와서 ```$ git log --graph```를 보면 <span style = "color:red;">A</span>는 이전에 <span style = "color:blue;">B</span>가 ```merge```한 작업을 보게 된다.  
+1. 한사람 A가 `작업 --> commit --> push` 를 했는데
+2. 다른 B가 `pull --> 작업 --> commit --> push`가 아니라 `작업 --> commit --> push`을 했다면
+3. **rejected** 당하고 git은 `$ git pull`을 하라고 한다.
+4. 하지만 같은 파일의 같은 라인을 수정한 경우, **conflict**가 일어난다.
+5. 이때 B가 **conflict**가 생긴 부분을 수정, 해결한 뒤 `commit --> push`하면 merge된다.
+6. 이후, A는 나중에 `pull`하여 가져와서 `$ git log --graph`를 보면 A는 이전에 B가 `merge`한 작업을 보게 된다.
  
-* 우리는 위의 <span style = "color:blue;">B</span>와 달리 항상 ```pull```을 하도록한다. 다른 사람이 업데이트 했는지 확인하는 것이 좋은 습관이다.
+* 우리는 위의 B와 달리 항상 `pull`을 하도록한다. 다른 사람이 업데이트 했는지 확인하는 것이 좋은 습관이다.
 
 ### pull VS fetch
+pull 은 fetch 후 merge 한 것과 같다.
 ```
-git pull = git fetch; git merge FETCH_HEAD;
+git pull
 ```
- 
-* ```$ git fetch``` : ```$ git pull```과 다르다. 원격 저장소가 가지고 있는 ```commit```들을 로컬 저장소로 update해준다. merge는 되지 않는다.  
-이때, HEAD는 fetch 이전의 commit을 그대로 가리킨다.  
-즉,  
-  ```  
-  git pull = git fetch; git merge master/origin(원격저장소 이름)
-  ```
+위의 명령은 다음 명령과 같다.
+```
+git fetch; git merge FETCH_HEAD;
+```
 
-* ```fetch```를 할 때 마다 ```.git/FETCH_HEAD```파일에 가장 최상위 ```commit id```을 표시한다.  
-따라서, 가장 최근의 ```commit```으로 ```HEAD```를 돌리기위해 항상 ```master/origin```와 ```merge```할필요 없이 아래와 같이 하면된다.
-  ```
-  git fetch; git merge FETCH_HEAD;
-  ```
+원격 가지 정보를 가져온다. 아직 업데이트 하진 않는다.
+```
+git fetch
+```
+`git pull`과 다르다. 원격 저장소가 가지고 있는 `commit`들을 로컬 저장소로 update해준다. merge는 되지 않는다.  
+이때, HEAD는 fetch 이전의 commit을 그대로 가리킨다.  
+즉, 다음 두 명령은 같다.
+```  
+git pull
+```
+```
+git fetch; git merge master/origin(원격저장소 이름)
+```
+내부적으로는 다음과 같이 동작한다.  
+`fetch`를 할 때 마다 `.git/FETCH_HEAD`파일에 가장 최상위 `commit id`을 표시한다.  
+따라서, 가장 최근의 `commit`으로 `HEAD`를 돌리기 위해 항상 `master/origin`와 `merge`할 필요 없이 아래와 같이 하면 된다.  
+```
+git fetch; git merge FETCH_HEAD;
+```
  
-* ∴ 신중하게 pull을 하고 싶으면 fetch를 사용한뒤 나중에 merge하면 된다.
+- ∴ 신중하게 pull을 하고 싶으면 fetch 를 사용한 뒤 나중에 merge 하면 된다.
 
 ## 5. [GIT - CLI cherry-pick & rebase](https://opentutorials.org/course/3843/24443)
 
-* cherry-pick, rebase, revert 들은 다른 가지에서 생성된 "커밋 혹은 커밋 들의 전체 워킹 디렉토리의 스냅샷을 가져오는 것이 아니라 "선택 커밋의 변화량"만 가져온다.
+- cherry-pick, rebase, revert 들은 다른 가지에서 생성된 "커밋 혹은 커밋 들의 전체 워킹 디렉토리의 스냅샷을 가져오는 것이 아니라 "선택 커밋의 변화량"만 가져온다.
 
 ### cherry-pick
 - 체리를 가져오듯이 특정 커밋만 가져오겠어
@@ -182,9 +318,9 @@ git pull = git fetch; git merge FETCH_HEAD;
 
 ### rebase
 - cherry-pick 의 연쇄작용이다.
-- 두 가지의 공통조상으로부터의 모든 다른 커밋을 하나의 가지로 가져온다.
-- master 가지의 공통 조상 이후 부터의 모든 커밋을 topic 으로 가져오고 싶은경우 master 브랜치로 이동하고 다음을 실행한다.
-    ```
+- 두 가지의 공통 조상인 커밋 이후 모든 커밋을 옮길 가지로 가져온다.
+- 공통 조상 이후부터 master 가지의 모든 커밋을 topic 으로 가져오고 싶은 경우 master 브랜치로 이동하고 다음을 실행한다.
+    ```bash
     # topic 가지에 master 의 커밋 기록이 얹어진다.
     git rebase topic
     ```
@@ -238,13 +374,16 @@ git pull = git fetch; git merge FETCH_HEAD;
 
   ```bash
   # 아래와 원격저장소인 origin에 로컬 브랜치 추가
-  $ git push origin dev/result_with_map 
+  $ git push origin feature/JR-25 
 
   # 아래와 같이 연동해둔다.
   # 해당 브랜치로 이동후
-  $ git branch --set-upstream-to origin/dev/result_with_map 
+  $ git branch --set-upstream-to origin/feature/JR-25 
   # 또는
-  $ git branch --set-upstream-to origin/dev/result_with_map dev/result_with_map  
+  $ git branch --set-upstream-to origin/feature/JR-25 feature/JR-25  
+
+  # 또는 아래와 같이 원격 브랜치 생성 및 연동을 한번에 수행할 수 있다.
+  $ git push -u origin feature/JR-25
   ```
 
 ### 원격 저장소를 로컬에 git clone 할 경우 연동
