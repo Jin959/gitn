@@ -357,7 +357,19 @@ git cherry-pick --abort
     git merge rebase
     ```
 
+### rebase 충돌
+cherry-pick 에서 한 3 way merge 를 연속적으로 사용한다.  
+`mergetool` 이나 vim 으로 직접 수정하고 나서 충돌 파일을 해결한다.
 
+
+충돌 시에 `git status` 를 확인하면 `(파일명).orig` 라는 파일이 있는데 이는 충돌난 상태의 백업파일이다. 추후 수정이 필요없다면 무시하거나 삭제해도 좋다.
+
+충돌을 해결했다면 다음과 같이 다시 rebase 을 진행한다.
+```
+git rebase --continue
+```
+하나의 커밋을 해결할 때마다 continue 를 통해 연속적으로 충돌을 해결해야 한다.
+모든 충돌 커밋을 해결하면 rebase 가 마무리 된다.
 
 ---
 
