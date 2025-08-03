@@ -311,10 +311,25 @@ git fetch; git merge FETCH_HEAD;
 - 체리를 가져오듯이 특정 커밋만 가져오겠어
 - 브랜치의 분기가 나뉘었는데 다른 브랜치의 특정 커밋에서 변화된 것을 가져오는 것
 - 타겟 커밋이 그대로 복제되어 현제 브랜치에 커밋까지 된다.
-- 가져오려는 커밋이 있는 브랜치가 아니라 병합하려는 타겟 브랜치로 이동한뒤 cherry-pick 한다.
+- 가져오려는 커밋이 있는 브랜치가 아니라 병합하려는 타겟 브랜치로 이동한뒤 cherry-pick 한다. merge 와 같다.
     ```
     git cherry-pick 3b16f55
     ```
+
+### cherry-pick 충돌
+3 way merge 를 통해 해결한다. `.gitconfig` 에서 mergetool 을 global 로 설정하면 다음 명령으로 병합을 관리할 수 있다. IntelliJ 나 VSCode 등으로 설정해두자.  
+cli 에서 vim 으로 충돌을 해결해도 된다. 하지만 mergetool 을 사용하면 편하고 `git add` 까지 수행한다.
+```
+git mergetool
+```
+충돌을 해결했다면 다음과 같이 다시 cherry-pick 을 진행한다.
+```
+git cherry-pick --continue
+```
+만약 cherry-pick 을 그만 두고 싶다면 abort 한다.
+```
+git cherry-pick --abort
+```
 
 ### rebase
 - cherry-pick 의 연쇄작용이다.
@@ -342,7 +357,11 @@ git fetch; git merge FETCH_HEAD;
     git merge rebase
     ```
 
+
+
 ---
+
+
 
 # 추가 학습
 
